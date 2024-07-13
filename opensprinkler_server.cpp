@@ -21,6 +21,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+#include "types.h"
 #include "OpenSprinkler.h"
 #include "program.h"
 #include "opensprinkler_server.h"
@@ -45,7 +46,7 @@
 		#define OTF_PARAMS_DEF const OTF::Request &req,OTF::Response &res
 		#define OTF_PARAMS req,res
 		#define FKV_SOURCE req
-		#define handle_return(x) {if(x==HTML_OK) res.writeBodyChunk((char *)"%s",ether_buffer); else otf_send_result(req,res,x); return;}
+		#define handle_return(x) {if(x==HTML_OK) res.writeBodyData(ether_buffer, strlen(ether_buffer)); else otf_send_result(req,res,x); return;}
 
 	#else
 
@@ -217,7 +218,7 @@ void rewind_ether_buffer() {
 
 void send_packet(OTF_PARAMS_DEF) {
 #if defined(ESP8266)
-	res.writeBodyChunk((char *)"%s",ether_buffer);
+	res.writeBodyData(ether_buffer, strlen(ether_buffer));
 #else
 	m_client->write((const uint8_t *)ether_buffer, strlen(ether_buffer));
 #endif
@@ -1095,7 +1096,7 @@ function rst_wsp() {document.getElementById('wsp').value='$S';}</script>)"),
 
 void server_json_controller_main(OTF_PARAMS_DEF) {
 	byte bid, sid;
-	time_t curr_time = os.now_tz();
+	time_os_t curr_time = os.now_tz();
 	bfill.emit_p(PSTR("\"devt\":$L,\"nbrd\":$D,\"en\":$D,\"sn1\":$D,\"sn2\":$D,\"rd\":$D,\"rdst\":$L,"
 										"\"sunrise\":$D,\"sunset\":$D,\"eip\":$L,\"lwc\":$L,\"lswc\":$L,"
 										"\"lupt\":$L,\"lrbtc\":$D,\"lrun\":[$D,$D,$D,$L],\"pq\":$D,\"pt\":$L,\"nq\":$D,"),
