@@ -2285,6 +2285,9 @@ void OpenSprinkler::options_setup() {
 		lcd.print('(');
 		lcd.print(OS_FW_MINOR);
 		lcd.print(')');
+		#ifdef OS_FW_PATCH
+		lcd.print(OS_FW_PATCH);
+		#endif //OS_FW_PATCH
 		delay(1000);
 		#endif
 	}

@@ -37,6 +37,8 @@ typedef unsigned long ulong;
 														// a device reset will be automatically triggered
 
 #define OS_FW_MINOR      4  // Firmware minor version
+//Patch version - comment out to not include it
+#define OS_FW_PATCH   	'A'
 
 /** Hardware version base numbers */
 #define OS_HW_VERSION_BASE   0x00 // OpenSprinkler
