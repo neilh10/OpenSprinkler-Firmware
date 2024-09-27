@@ -335,6 +335,7 @@ void on_ap_change_config(OTF_PARAMS_DEF) {
 		}
 		os.sopt_save(SOPT_STA_SSID, os.wifi_ssid.c_str());
 		os.sopt_save(SOPT_STA_PASS, os.wifi_pass.c_str());
+		// TODO NJH : Add to eeprom  probably in 
 		otf_send_result(OTF_PARAMS, HTML_SUCCESS, nullptr);
 		os.state = OS_STATE_TRY_CONNECT;
 		os.lcd.setCursor(0, 2);

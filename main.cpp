@@ -304,7 +304,21 @@ void do_setup() {
 #endif
 
 	DEBUG_BEGIN(115200);
-	DEBUG_PRINTLN(F("started"));
+	#ifdef ENABLE_DEBUG 
+	delay (1000); // Allow power up using USB Debug Paddle - driver on Host side needs time to connect
+	const String program_name ="\n\m Boot .. OpenSprinkler ";
+	const String build_ref =  " " __DATE__ " " __TIME__ " ";
+	#endif //ENABLE_DEBUG 
+	DEBUG_PRINT(program_name);
+	DEBUG_PRINT(" ");
+	DEBUG_PRINT(OS_FW_VERSION);
+	DEBUG_PRINT("(");
+	DEBUG_PRINT(OS_FW_MINOR);
+	DEBUG_PRINT(")-");
+	#ifdef OS_FW_PATCH
+	DEBUG_PRINT(OS_FW_PATCH)
+	#endif //OS_FW_PATCH
+	DEBUG_PRINTLN(build_ref)
 
 	os.begin();          // OpenSprinkler init
 	os.options_setup();  // Setup options
